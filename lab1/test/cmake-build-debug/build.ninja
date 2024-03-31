@@ -49,8 +49,8 @@ cmake_ninja_workdir = /Users/askoritan/programming/algds2024/lab1/test/cmake-bui
 
 build cmake_object_order_depends_target_test: phony || CMakeFiles/test.dir
 
-build CMakeFiles/test.dir/main.cpp.o: CXX_COMPILER__test_unscanned_Debug /Users/askoritan/programming/algds2024/lab1/test/main.cpp || cmake_object_order_depends_target_test
-  DEP_FILE = CMakeFiles/test.dir/main.cpp.o.d
+build CMakeFiles/test.dir/test.cpp.o: CXX_COMPILER__test_unscanned_Debug /Users/askoritan/programming/algds2024/lab1/test/test.cpp || cmake_object_order_depends_target_test
+  DEP_FILE = CMakeFiles/test.dir/test.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
   INCLUDES = -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/test.dir
@@ -64,7 +64,7 @@ build CMakeFiles/test.dir/main.cpp.o: CXX_COMPILER__test_unscanned_Debug /Users/
 #############################################
 # Link the executable test
 
-build test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/main.cpp.o | /opt/homebrew/lib/libgtest.a
+build test: CXX_EXECUTABLE_LINKER__test_Debug CMakeFiles/test.dir/test.cpp.o | /opt/homebrew/lib/libgtest.a
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
   LINK_LIBRARIES = /opt/homebrew/lib/libgtest.a
   OBJECT_DIR = CMakeFiles/test.dir
