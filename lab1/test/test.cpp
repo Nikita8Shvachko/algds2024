@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 using namespace std;
-// Тестирование фу  нкции find_max_increasing_subsequence
+// Тестирование фу  ффнкции find_max_increasing_subsequence
 TEST(FindMaxIncreasingSubsequenceTest, Example1) {
     int sequence[] = {3, 10, 2, 1, 20};
     int sequence_length = sizeof(sequence) / sizeof(sequence[0]);

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int* find_max_increasing_subsequence(int sequence[], int sequence_length, int *length_of_subsequence) {
-    // Выделя  ем память для массива длин increasing_sequence_lengths
+    // Выделя  ффем память для массива длин increasing_sequence_lengths
     int *increasing_sequence_lengths = (int*)malloc(sizeof(int) * sequence_length);
     // Инициализируем массив длин increasing_sequence_lengths
     for (int i = 0; i < sequence_length; i++)
