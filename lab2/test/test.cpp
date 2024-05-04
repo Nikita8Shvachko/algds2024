@@ -1,5 +1,6 @@
+#include "treap.h"
 #include <gtest/gtest.h>
-
+#include <iostream>
 // Function to check if a tree is a binary search tree
 bool isBST(Node* node, Node* l=nullptr, Node* r=nullptr) {
     if (node == nullptr)
@@ -54,5 +55,7 @@ ASSERT_TRUE(isHeap(root));
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
+
     return RUN_ALL_TESTS();
+
 }
