@@ -1,23 +1,38 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
+#ifndef TREAP_H
+#define TREAP_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 struct Node {
     int key, priority;
-    Node *left, *right, *parent;
-
-    Node(int k) : key(k), priority(rand()), left(nullptr), right(nullptr), parent(nullptr) {}
+    struct Node *left, *right, *parent;
 };
 
-void rotateRight(Node *&root, Node *x) {
-    Node *y = x->left;
+struct Node* newNode(int key) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    if (node == NULL) {
+        fprintf(stderr, "Memory allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
+    node->key = key;
+    node->priority = rand() % 100;
+    node->left = NULL;
+    node->right = NULL;
+    node->parent = NULL;
+    return node;
+}
+
+void rotateRight(struct Node **root, struct Node *x) {
+    struct Node *y = x->left;
     x->left = y->right;
     if (y->right) {
         y->right->parent = x;
     }
     y->parent = x->parent;
     if (!x->parent) {
-        root = y;
+        *root = y;
     } else if (x == x->parent->right) {
         x->parent->right = y;
     } else {
@@ -27,15 +42,15 @@ void rotateRight(Node *&root, Node *x) {
     x->parent = y;
 }
 
-void rotateLeft(Node *&root, Node *x) {
-    Node *y = x->right;
+void rotateLeft(struct Node **root, struct Node *x) {
+    struct Node *y = x->right;
     x->right = y->left;
     if (y->left) {
         y->left->parent = x;
     }
     y->parent = x->parent;
     if (!x->parent) {
-        root = y;
+        *root = y;
     } else if (x == x->parent->left) {
         x->parent->left = y;
     } else {
@@ -45,13 +60,15 @@ void rotateLeft(Node *&root, Node *x) {
     x->parent = y;
 }
 
+struct Node* insert(struct Node *root, int key) {
 
-Node *insert(Node *root, int key) {
-    Node *newNode = new Node(key);
-    if (!root) return newNode;
+    struct Node *temp = newNode(key);
 
-    Node *curr = root;
-    Node *parent = nullptr;
+
+    if (!root) return temp;
+
+
+    struct Node *curr = root, *parent = NULL;
     while (curr) {
         parent = curr;
         if (key < curr->key) {
@@ -61,36 +78,34 @@ Node *insert(Node *root, int key) {
         }
     }
 
+
+    temp->parent = parent;
+
     if (!parent) {
-        return newNode;
-    }
-
-    if (key < parent->key) {
-        parent->left = newNode;
+        root = temp;
+    } else if (key < parent->key) {
+        parent->left = temp;
     } else {
-        parent->right = newNode;
+        parent->right = temp;
     }
-    newNode->parent = parent;
 
 
-    while (newNode->parent && newNode->priority > newNode->parent->priority) {
-        if (newNode == newNode->parent->left) {
-            rotateRight(root, newNode->parent);
+    while (temp->parent && temp->priority > temp->parent->priority) {
+        if (temp == temp->parent->left) {
+            rotateRight(&root, temp->parent);
         } else {
-            rotateLeft(root, newNode->parent);
+            rotateLeft(&root, temp->parent);
         }
     }
 
-
-    return (parent == nullptr) ? newNode : root;
+    return root;
 }
+struct Node* erase(struct Node* root, int key) {
+    struct Node* curr = root;
+    struct Node* parent = NULL;
 
 
-Node* erase(Node*& root, int key) {
-    Node* curr = root;
-    Node* parent = nullptr;
-
-    while (curr && curr->key != key) {
+    while (curr && (curr->key != key)) {
         parent = curr;
         if (key < curr->key) {
             curr = curr->left;
@@ -99,43 +114,45 @@ Node* erase(Node*& root, int key) {
         }
     }
 
+
     if (!curr) return root;
+
 
     while (curr->left || curr->right) {
         if (!curr->right || (curr->left && curr->left->priority > curr->right->priority)) {
-            if (curr->right) {
-                rotateLeft(root, curr->right);
-            }
             rotateRight(root, curr);
+            parent = curr;
+            curr = curr->right;
         } else {
-            if (curr->left) {
-                rotateRight(root, curr->left);
-            }
             rotateLeft(root, curr);
+            parent = curr;
+            curr = curr->left;
         }
     }
 
+
     if (parent) {
         if (parent->left == curr) {
-            parent->left = nullptr;
+            parent->left = NULL;
         } else {
-            parent->right = nullptr;
+            parent->right = NULL;
         }
     } else {
-        root = nullptr;
+        root = NULL;
     }
-    delete curr;
+
+    free(curr);
 
     return root;
 }
 
-
-
-void printTreap(Node *root) {
+void printTreap(struct Node *root) {
     if (!root) {
         return;
     }
     printTreap(root->left);
-    cout << root->key << " " << endl;
+    printf("%d \n", root->key);
     printTreap(root->right);
 }
+
+#endif // TREAP_H

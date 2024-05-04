@@ -1,12 +1,9 @@
-#include <iostream>
+#include <stdio.h>
 #include "treap.h"
-
-using namespace std;
 
 int main() {
 
-    Node *root = nullptr;
-
+    struct Node *root = NULL;
 
     root = insert(root, 4);
     root = insert(root, 2);
@@ -16,12 +13,11 @@ int main() {
     root = insert(root, 5);
     root = insert(root, 7);
 
-    cout << "Treap after insertion" << endl;
+    printf("Treap after insertion\n");
     printTreap(root);
 
-
     root = erase(root, 4);
-    cout << "Treap after erasing 4" << endl;
+    printf("Treap after erasing 4\n");
     printTreap(root);
 
     return 0;
