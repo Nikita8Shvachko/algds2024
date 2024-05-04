@@ -1,5 +1,6 @@
 #include <iostream>
 #include "treap.h"
+
 using namespace std;
 
 int main() {
@@ -15,12 +16,12 @@ int main() {
     root = insert(root, 5);
     root = insert(root, 7);
 
-    cout << "Treap after insertion:" << endl;
+    cout << "Treap after insertion" << endl;
     printTreap(root);
 
 
     root = erase(root, 4);
-    cout << "Treap after erasing 4:" << endl;
+    cout << "Treap after erasing 4" << endl;
     printTreap(root);
 
     return 0;

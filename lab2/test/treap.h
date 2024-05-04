@@ -99,7 +99,7 @@ Node* erase(Node*& root, int key) {
         }
     }
 
-    if (!curr) return root; // Key not found
+    if (!curr) return root;
 
     while (curr->left || curr->right) {
         if (!curr->right || (curr->left && curr->left->priority > curr->right->priority)) {

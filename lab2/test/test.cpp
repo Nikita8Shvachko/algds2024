@@ -1,7 +1,6 @@
 #include "treap.h"
 #include <gtest/gtest.h>
 #include <iostream>
-// Function to check if a tree is a binary search tree
 bool isBST(Node* node, Node* l=nullptr, Node* r=nullptr) {
     if (node == nullptr)
         return true;
@@ -12,7 +11,6 @@ bool isBST(Node* node, Node* l=nullptr, Node* r=nullptr) {
     return isBST(node->left, l, node) && isBST(node->right, node, r);
 }
 
-// Function to check if a tree is a heap
 bool isHeap(Node* node) {
     if (node == nullptr)
         return true;
